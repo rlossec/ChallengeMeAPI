@@ -1,4 +1,9 @@
 # python manage.py test accounts.tests.test_user_me
+import io
+from PIL import Image
+from pathlib import Path
+
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.urls import reverse
 from django.contrib.auth import get_user_model
 
@@ -9,6 +14,15 @@ from accounts.tests import AUTHENTICATION_MISSING, MANDATORY_FIELD_ERROR_MESSAGE
     INVALID_EMAIL_ERROR_MESSAGE, USERNAME_ALREADY_TAKEN_ERROR_MESSAGE, EMAIL_ALREADY_TAKEN_ERROR_MESSAGE
 
 User = get_user_model()
+
+
+def generate_test_image(name='test_image.jpg', size=(100, 100), color=(255, 0, 0)):
+    """Génère une petite image pour les tests."""
+    file = io.BytesIO()
+    image = Image.new('RGB', size, color)
+    image.save(file, 'JPEG')
+    file.seek(0)
+    return SimpleUploadedFile(name, file.read(), content_type='image/jpeg')
 
 
 class TestUserMeEndpoint(APITestCase):
@@ -288,3 +302,48 @@ class TestUserGetMe(APITestCase):
         response = self.client.get(reverse("user-me"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['username'], self.superuser1.username)
+
+
+class TestUserAvatarUpdate(APITestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(
+            username='testuser',
+            email='testuser@example.com',
+            password='ValidPassword123!',
+            first_name='John',
+            last_name='Doe',
+            avatar=generate_test_image('old_avatar.jpg')
+        )
+        self.token = self.client.post(reverse('jwt-create'), {
+            'username': 'testuser',
+            'password': 'ValidPassword123!'
+        }).data['access']
+        self.user_me_url = reverse('user-me')
+
+    def test_update_avatar_removes_old_file(self):
+        """Test que la mise à jour du champ avatar supprime l'ancien fichier."""
+        self.client.credentials(HTTP_AUTHORIZATION=f'Bearer {self.token}')
+
+        # Vérifier que l'ancien fichier existe
+        old_avatar_path = Path(self.user.avatar.path)
+        self.assertTrue(old_avatar_path.exists())
+
+        # Nouveau fichier avatar
+        new_avatar = generate_test_image('new_avatar.jpg')
+        response = self.client.patch(self.user_me_url, {'avatar': new_avatar})
+        print(response.data)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.user.refresh_from_db()
+
+        # Vérifier que l'ancien fichier a été supprimé
+        self.assertFalse(old_avatar_path.exists())
+
+        # Vérifier que le nouveau fichier est bien enregistré
+        self.assertIn('new_avatar.jpg', self.user.avatar.name)
+        self.assertTrue(Path(self.user.avatar.path).exists())
+
+    def tearDown(self):
+        """Supprime tous les fichiers créés lors des tests."""
+        avatar_path = Path(self.user.avatar.path)
+        if self.user.avatar and avatar_path.exists():
+            avatar_path.unlink()

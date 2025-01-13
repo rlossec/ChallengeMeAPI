@@ -1,3 +1,3 @@
-from quiz.views.questions import QuestionViewSet
-from quiz.views.themes import ThemeViewSet
-from quiz.views.userprogress import UserProgressViewSet
+from .questions import QuestionViewSet
+from .themes import ThemeViewSet
+from .favorites import FavoriteListView, AddFavoriteView, RemoveFavoriteView

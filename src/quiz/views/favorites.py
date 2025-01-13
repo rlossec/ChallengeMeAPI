@@ -45,4 +45,4 @@ class RemoveFavoriteView(APIView):
             return Response({"detail": "Theme not in favorites."}, status=status.HTTP_400_BAD_REQUEST)
 
         favorite.delete()
-        return Response({"detail": "Theme removed from favorites."}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"detail": "Theme removed from favorites."}, status=status.HTTP_200_OK)

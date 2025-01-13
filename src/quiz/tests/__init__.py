@@ -1,0 +1,1 @@
+# python manage.py test quiz.tests.test_themes

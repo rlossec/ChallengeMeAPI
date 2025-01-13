@@ -328,17 +328,13 @@ class TestUserAvatarUpdate(APITestCase):
         old_avatar_path = Path(self.user.avatar.path)
         self.assertTrue(old_avatar_path.exists())
 
-        # Nouveau fichier avatar
         new_avatar = generate_test_image('new_avatar.jpg')
         response = self.client.patch(self.user_me_url, {'avatar': new_avatar})
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.user.refresh_from_db()
 
-        # Vérifier que l'ancien fichier a été supprimé
         self.assertFalse(old_avatar_path.exists())
 
-        # Vérifier que le nouveau fichier est bien enregistré
         self.assertIn('new_avatar.jpg', self.user.avatar.name)
         self.assertTrue(Path(self.user.avatar.path).exists())
 

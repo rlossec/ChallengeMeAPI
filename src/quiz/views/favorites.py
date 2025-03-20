@@ -2,7 +2,8 @@ from rest_framework import status, permissions
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from quiz.models import Theme, Favorite
-from quiz.serializers import ThemeSerializer
+from quiz.serializers import ThemeDetailedSerializer
+
 
 class FavoriteListView(APIView):
     permission_classes = [permissions.IsAuthenticated]
@@ -10,7 +11,7 @@ class FavoriteListView(APIView):
     def get(self, request):
         # Récupère les thèmes favoris de l'utilisateur connecté
         favorites = Favorite.objects.filter(user=request.user)
-        serializer = ThemeSerializer([favorite.theme for favorite in favorites], many=True)
+        serializer = ThemeDetailedSerializer([favorite.theme for favorite in favorites], many=True)
         return Response(serializer.data)
 
 class AddFavoriteView(APIView):
@@ -29,6 +30,7 @@ class AddFavoriteView(APIView):
         # Ajoute le thème aux favoris
         Favorite.objects.create(user=request.user, theme=theme)
         return Response({"detail": "Theme added to favorites."}, status=status.HTTP_201_CREATED)
+
 
 class RemoveFavoriteView(APIView):
     permission_classes = [permissions.IsAuthenticated]

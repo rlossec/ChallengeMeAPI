@@ -4,12 +4,29 @@ from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 
 from ..models import Theme, Question
-from ..serializers import ThemeSerializer, ReorderSubthemesSerializer, QuestionSerializer
+from ..serializers import ThemeDetailedSerializer, ReorderSubthemesSerializer, QuestionPlaySerializer
 
 
 class ThemeViewSet(ModelViewSet):
-    queryset = Theme.objects.all().order_by('order')
-    serializer_class = ThemeSerializer
+    queryset = Theme.objects.filter(parent_theme__isnull=True).order_by('order')
+    serializer_class = ThemeDetailedSerializer
+
+    def get_queryset(self):
+        """
+        - Pour la liste, on récupère uniquement les thèmes de premier niveau.
+        - Pour les autres actions (RUD), on récupère tous les thèmes.
+        """
+        if self.action == 'list':
+            return Theme.objects.filter(parent_theme__isnull=True).order_by('order')
+        return Theme.objects.all()
+
+    # Méthode pour obtenir tous les sous-thèmes récursivement
+    def get_all_subthemes(self, theme):
+        subthemes = Theme.objects.filter(parent_theme=theme)
+        all_subthemes = list(subthemes)
+        for subtheme in subthemes:
+            all_subthemes.extend(self.get_all_subthemes(subtheme))
+        return all_subthemes
 
     @action(detail=True, methods=['post'])
     def reorder_subthemes(self, request, pk=None):
@@ -43,14 +60,6 @@ class ThemeViewSet(ModelViewSet):
             status=status.HTTP_200_OK
         )
 
-    # Méthode pour obtenir tous les sous-thèmes récursivement
-    def get_all_subthemes(self, theme):
-        subthemes = Theme.objects.filter(parent_theme=theme)
-        all_subthemes = list(subthemes)
-        for subtheme in subthemes:
-            all_subthemes.extend(self.get_all_subthemes(subtheme))
-        return all_subthemes
-
     @action(detail=True, methods=['get'], url_path='questions')
     def theme_questions(self, request, pk=None):
         """
@@ -66,5 +75,5 @@ class ThemeViewSet(ModelViewSet):
         themes_to_include = [theme] + all_subthemes
         questions = Question.objects.filter(theme__in=themes_to_include)
 
-        serializer = QuestionSerializer(questions, many=True)
+        serializer = QuestionPlaySerializer(questions, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

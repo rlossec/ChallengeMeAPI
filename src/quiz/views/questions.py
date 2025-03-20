@@ -1,16 +1,16 @@
 from rest_framework.viewsets import ModelViewSet
 from ..models import Question
-from ..serializers import QuestionSerializer, QuestionCreateUpdateSerializer
+from ..serializers import QuestionPlaySerializer, QuestionCRUDSerializer
 
 
 class QuestionViewSet(ModelViewSet):
     queryset = Question.objects.all()
-    serializer_class = QuestionSerializer
+    serializer_class = QuestionPlaySerializer
 
     def get_serializer_class(self):
         """
         Retourne le sérialiseur approprié en fonction de l'action.
         """
         if self.action == "create" or self.action == "update":
-            return QuestionCreateUpdateSerializer
-        return QuestionSerializer
+            return QuestionCRUDSerializer
+        return QuestionCRUDSerializer

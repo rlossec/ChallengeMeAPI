@@ -21,7 +21,7 @@ class TestQuestions(APITestCase):
             first_name='John',
             last_name='Doe'
         )
-        self.client.force_authenticate(self.user)  # Authentification automatique pour les tests
+        self.client.force_authenticate(self.user)
 
         # Création de thèmes pour les tests
         self.parent_theme = Theme.objects.create(name="Parent Theme")

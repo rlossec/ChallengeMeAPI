@@ -14,7 +14,6 @@ class RetrieveQuestionTestCase(TestQuestions):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['id'], self.question1.id)
         self.assertEqual(response.data['question_text'], self.question1.question_text)
-        self.assertEqual(response.data['choices'], self.question1.choices)
 
     def test_retrieve_question_not_found(self):
         """

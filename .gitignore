@@ -3,5 +3,8 @@
 
 /.env
 
+__pycache__/
+
+# Database
 /src/db.sqlite3
 /src/media/

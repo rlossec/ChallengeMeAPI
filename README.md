@@ -134,9 +134,9 @@ Les tests couvrent :
 
 Consultez le dossier `docs/` pour :
 
-- **MCD (Modèle Conceptuel de Données)** - Schéma des relations entre entités
-- **Documentation des tests** - Guide détaillé des tests unitaires
-- **Guide de développement** - Standards et bonnes pratiques
+- **[API Reference](./api.md)** - Documentation détaillée de l'API REST
+- **[Documentation des Tests](./tests.md)** - Guide complet des tests unitaires et d'intégration
+
 
 ## 🤝 Contribution
 
@@ -150,6 +150,3 @@ Consultez le dossier `docs/` pour :
 
 Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
 
-## 📞 Support
-
-Pour toute question ou problème, ouvrez une issue sur le repository GitHub.

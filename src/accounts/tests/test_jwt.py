@@ -13,13 +13,13 @@ User = get_user_model()
 
 class TestJWTEndpoints(APITestCase):
     def setUp(self):
-        # Créer un utilisateur actif pour les tests
+
         self.user = User.objects.create_user(
             username='testuser',
             email='testuser@example.com',
             password='password123'
         )
-        # Créer un utilisateur inactif pour le test d'inactivité
+
         self.inactive_user = User.objects.create_user(
             username='inactiveuser',
             email='inactiveuser@example.com',
@@ -31,7 +31,7 @@ class TestJWTEndpoints(APITestCase):
         self.jwt_refresh_url = reverse('jwt-refresh')
         self.jwt_verify_url = reverse('jwt-verify')
 
-    def test_jwt_create(self):
+    def test_jwt_create_success(self):
         """Test pour vérifier la génération du token JWT avec des identifiants valides"""
         response = self.client.post(self.jwt_create_url, {
             'username': 'testuser',
@@ -63,17 +63,19 @@ class TestJWTEndpoints(APITestCase):
         self.assertNotIn('access', response.data)
         self.assertNotIn('refresh', response.data)
 
-    def test_jwt_create_missing_fields(self):
-        """Test pour vérifier les erreurs de champs manquants pour jwt-create"""
+    def test_jwt_create_missing_username(self):
+        """Test d'une connexion avec un username manquant"""
         response = self.client.post(self.jwt_create_url, {'username': 'testuser'})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('password', response.data)
-        self.assertEqual(response.data['password'][0], MANDATORY_FIELD_ERROR_MESSAGE)
+        self.assertIn(MANDATORY_FIELD_ERROR_MESSAGE, response.data['password'])
 
+    def test_jwt_create_missing_password(self):
+        """Test d'une connexion avec un password manquant"""
         response = self.client.post(self.jwt_create_url, {'password': 'password123'})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('username', response.data)
-        self.assertEqual(response.data['username'][0], MANDATORY_FIELD_ERROR_MESSAGE)
+        self.assertIn(MANDATORY_FIELD_ERROR_MESSAGE,response.data['username'])
 
     # Refresh
     def test_jwt_refresh(self):
@@ -94,7 +96,7 @@ class TestJWTEndpoints(APITestCase):
         response = self.client.post(self.jwt_refresh_url, {})
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('refresh', response.data)
-        self.assertEqual(response.data['refresh'][0], MANDATORY_FIELD_ERROR_MESSAGE)
+        self.assertIn(MANDATORY_FIELD_ERROR_MESSAGE, response.data['refresh'])
 
     def test_jwt_refresh_invalid_token(self):
         """Test pour vérifier l'erreur de champ manquant pour jwt-refresh"""
@@ -119,6 +121,17 @@ class TestJWTEndpoints(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual({}, response.data)
 
+    ## 400
+    ### Missing field
+    def test_jwt_verify_missing_field(self):
+        """Test pour vérifier l'erreur de champ manquant pour jwt-verify"""
+        response = self.client.post(self.jwt_verify_url, {})
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn('token', response.data)
+        self.assertIn(MANDATORY_FIELD_ERROR_MESSAGE, response.data['token'])
+
+    ## 401
+    ### Invalid token
     def test_jwt_verify_invalid_token(self):
         """Test pour vérifier qu'un token JWT invalide ne passe pas la vérification"""
         invalid_token = 'abc123'  # Faux token
@@ -128,13 +141,6 @@ class TestJWTEndpoints(APITestCase):
         self.assertEqual(response.data['detail'], EXPIRED_TOKEN_ERROR_MESSAGE)
         self.assertIn('code', response.data)
         self.assertEqual(response.data['code'], 'token_not_valid')
-
-    def test_jwt_verify_missing_field(self):
-        """Test pour vérifier l'erreur de champ manquant pour jwt-verify"""
-        response = self.client.post(self.jwt_verify_url, {})
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn('token', response.data)
-        self.assertEqual(response.data['token'][0], MANDATORY_FIELD_ERROR_MESSAGE)
 
     def test_jwt_tokens_validity(self):
         """Test pour vérifier que les tokens sont valides"""

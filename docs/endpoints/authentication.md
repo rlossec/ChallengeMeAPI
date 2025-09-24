@@ -4,13 +4,13 @@
 | --- | --- | --- | --- | --- | --- |
 | **POST**	 | `auth/users/` | Register | ✅ | 15 ✅ | [Détail](#1-inscription) |
 | --- | --- | --- | --- | --- | --- |
-| **POST** | `auth/users/activation/` | Activate account | ❌ | ❌ | [Détail](#21-activation) |
-| **POST**	 | `auth/users/resend_activation/` | Resend activation email | ❌ | ❌ | [Détail](#22-renvoi-de-lemail-dactivation) |
+| **POST** | `auth/users/activation/` | Activate account | ✅ | ✅ | [Détail](#21-activation) |
+| **POST**	 | `auth/users/resend_activation/` | Resend activation email | ✅ | ✅ | [Détail](#22-renvoi-de-lemail-dactivation) |
 | --- | --- | --- | --- | --- | --- |
-| **POST** | `auth/jwt/create/` | Login -> JWT Tokens | ❌ | ❌ | [Détail](#3-connexion) |
+| **POST** | `auth/jwt/create/` | Login -> JWT Tokens | ✅ | ✅ | [Détail](#3-connexion) |
 | --- | --- | --- | --- | --- | --- |
-| **POST** | `auth/jwt/refresh/` | Refresh JWT Token | ❌ | ❌ | [Détail](#41-rafraîchissement-du-token) |
-| **POST** | `auth/jwt/verify/` | Delete | ❌| ❌ | [Détail](#42-vérification-du-token) |
+| **POST** | `auth/jwt/refresh/` | Refresh JWT Token | ✅ | ✅ | [Détail](#41-rafraîchissement-du-token) |
+| **POST** | `auth/jwt/verify/` | Delete | ✅| ✅ | [Détail](#42-vérification-du-token) |
 | --- | --- | --- | --- | --- | --- |
 | **GET**	 | `auth/users/` | List users | ❌ | ❌ | [Détail](#5-liste-les-utilisateurs) |
 | --- | --- | --- | --- | --- | --- |
@@ -42,7 +42,7 @@
 
 **POST** `auth/users/`
 
-**Description** : Crée un nouvel utilisateur.
+**Description** : Crée un nouvel utilisateur.  
 **Commande des tests** : `python manage.py test accounts.tests.test_register`
 
 #### Paramètres
@@ -71,7 +71,7 @@
 - **400** : 
   * Champ obligatoire manquant (username, email, password, re_password) ✅
   * Données invalides :                                                 ✅
-    - usename avec des caractères spéciaux                              ✅
+    - username avec des caractères spéciaux                             ✅
     - username trop long                                                ✅
     - username existant en BDD                                          ✅
     - email invalide (ne respectant pas la structure aaa@aa.aaa)        ✅
@@ -145,7 +145,7 @@ Pour ne pas communiquer le fait qu'un email est en base de données, on a deux m
 
 **POST** `/auth/jwt/create/`
 
-**Description** : Authentifie un utilisateur et retourne les tokens JWT.
+**Description** : Authentifie un utilisateur et retourne les tokens JWT.  
 **Commande des tests** : `python manage.py test accounts.tests.test_jwt`
 
 
@@ -158,7 +158,7 @@ Pour ne pas communiquer le fait qu'un email est en base de données, on a deux m
 }
 ```
 
-#### Réponse de succès (200)
+#### Réponse de succès (200) ✅
 
 ```json
 {
@@ -167,9 +167,17 @@ Pour ne pas communiquer le fait qu'un email est en base de données, on a deux m
 }
 ```
 
-#### Codes d'erreur
+#### Cas d'erreur
 
-- **401** : Identifiants invalides
+- **401** : 
+  * Identifiants invalides ✅
+  * Utilisateur inactif ✅
+- **400** :
+  * Champ obligatoire manquant : username ou password ✅ ✅
+
+
+Les deux cas 401 renvoi un message indiquant des identifiants invalides pour cacher le fait qu'un email est en BDD.
+
 
 ## 4. Gestion des JWT
 ### 4.1 Rafraîchissement du token
@@ -188,7 +196,7 @@ Pour ne pas communiquer le fait qu'un email est en base de données, on a deux m
 }
 ```
 
-#### Réponse de succès (200)
+#### Réponse de succès (200) ✅
 
 ```json
 {
@@ -196,12 +204,40 @@ Pour ne pas communiquer le fait qu'un email est en base de données, on a deux m
 }
 ```
 
+#### Cas d'erreur
+
+- **400** : Champ refresh manquant ✅
+- **401** : Token invalide         ✅
+
 ### 4.2. Vérification du token
 
 **POST** `/auth/jwt/verify/`
 
 **Description** : Vérifie la validité d'un JWT.
 **Commande des tests** : `python manage.py test accounts.tests.test_jwt`
+
+#### Paramètres
+
+```json
+{
+  "token": "string"
+}
+```
+
+#### Réponse de succès (200) ✅
+
+```json
+{
+
+}
+```
+TODO : Override pour soit un 204, soit un booléen true ?
+
+
+#### Cas d'erreur
+
+- **400** : Champ `token` manquant ✅
+- **401** : Token invalide         ✅
 
 ## 5. Liste les utilisateurs
 

@@ -2,7 +2,7 @@
 
 |  | url | Description | Implement | Tests | Shortcut |
 | --- | --- | --- | --- | --- | --- |
-| **POST**	 | `auth/users/` | Register | 15 ✅ | ✅ | [Détail](#1-inscription) |
+| **POST**	 | `auth/users/` | Register | ✅ | 15 ✅ | [Détail](#1-inscription) |
 | --- | --- | --- | --- | --- | --- |
 | **POST** | `auth/users/activation/` | Activate account | ❌ | ❌ | [Détail](#21-activation) |
 | **POST**	 | `auth/users/resend_activation/` | Resend activation email | ❌ | ❌ | [Détail](#22-renvoi-de-lemail-dactivation) |
@@ -100,6 +100,15 @@
   "token": "string"
 }
 ```
+#### Réponse 204 No Content ❌
+
+#### Cas d'erreur
+
+- **400** : 
+  * Champ obligatoire manquant uid ou token ✅
+  * Champ invalide uid ou token ✅
+- **403** : 
+  * Compte déjà actif ✅
 
 ### 2.2. Renvoi de l'email d'activation
 
@@ -112,10 +121,25 @@
 
 ```json
 {
-  "uid": "string",
-  "token": "string"
+  "email": "string",
 }
 ```
+
+#### Réponse 204 NO CONTENT ✅
+
+Pour ne pas communiquer le fait qu'un email est en base de données, on a deux messages de succès fictif :
+
+- Si l'email n'est pas en BDD
+- Si l'email correspond à un compte déjà actif
+
+#### Cas d'erreur
+
+- **400** : 
+  * Champ obligatoire manquant email ✅
+  * Champ invalide email ✅
+- **403** : 
+  * Compte déjà actif ✅
+
 
 ## 3. Connexion
 

@@ -4,10 +4,10 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-from accounts.tests import USERNAME_ALREADY_TAKEN_ERROR_MESSAGE, \
+from accounts.tests import INVALID_EMAIL_ERROR_MESSAGE, USERNAME_ALREADY_TAKEN_ERROR_MESSAGE, \
     PASSWORD_TOO_SHORT_ERROR_MESSAGE, PASSWORD_TOO_CLOSE_USERNAME_ERROR_MESSAGE, TOO_COMMON_PASSWORD_ERROR_MESSAGE, \
-    EMAIL_ALREADY_TAKEN_ERROR_MESSAGE
-
+    EMAIL_ALREADY_TAKEN_ERROR_MESSAGE, USERNAME_INVALID_CHARACTERS_ERROR_MESSAGE, USERNAME_TOO_LONG_ERROR_MESSAGE, \
+    PASSWORD_MISMATCH_ERROR_MESSAGE
 
 class TestRegister(APITestCase):
     def setUp(self):
@@ -27,7 +27,8 @@ class TestRegister(APITestCase):
         self.assertIn('email', response.data)
         self.assertEqual(response.data['email'], self.valid_payload['email'])
 
-    # Missing fields
+    # 400 Bad Request
+    ## Missing fields
     def test_registration_missing_username(self):
         """Test si le champ username est manquant"""
         payload = self.valid_payload.copy()
@@ -60,8 +61,8 @@ class TestRegister(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('re_password', response.data)
 
-    # Validation
-    ## Username
+    ## Invalid fields
+    ### Username
     def test_registration_username_invalid_characters(self):
         """Test si le nom d'utilisateur contient des caractères non autorisés"""
         payload = self.valid_payload.copy()
@@ -69,26 +70,16 @@ class TestRegister(APITestCase):
         response = self.client.post(self.url, payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("username", response.data)
+        self.assertIn(USERNAME_INVALID_CHARACTERS_ERROR_MESSAGE, response.data["username"])
 
     def test_registration_username_too_long(self):
         """Test si le nom d'utilisateur dépasse la longueur autorisée"""
         payload = self.valid_payload.copy()
-        payload["username"] = "a" * 151  # Exceeding Django's default username max length of 150
+        payload["username"] = "a" * 151
         response = self.client.post(self.url, payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("username", response.data)
-
-    def test_registration_password_similar_to_username(self):
-        invalid_payload = {
-            "username": "testuser",
-            "email": "testuser@example.com",
-            "password": "testuser",
-            "re_password": "testuser"
-        }
-        response = self.client.post(self.url, invalid_payload, format='json')
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertIn("password", response.data)
-        self.assertIn(PASSWORD_TOO_CLOSE_USERNAME_ERROR_MESSAGE, response.data['password'])
+        self.assertIn(USERNAME_TOO_LONG_ERROR_MESSAGE, response.data["username"])
 
     def test_registration_username_already_registered(self):
         """Test si le nom d'utilisateur est déjà utilisé par un autre utilisateur"""
@@ -109,7 +100,8 @@ class TestRegister(APITestCase):
         self.assertIn('username', response.data)
         self.assertIn(USERNAME_ALREADY_TAKEN_ERROR_MESSAGE, response.data["username"])
 
-    ## Email validation
+
+    ## Email
     def test_registration_invalid_email(self):
         """Test pour des emails invalides"""
         invalid_emails = ["plainaddress", "missingatsign.com", "missingdomain@.com", "user@com", "user@domain..com", "user@domain.c", "user@.com"]
@@ -119,6 +111,7 @@ class TestRegister(APITestCase):
             response = self.client.post(self.url, payload)
             self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
             self.assertIn('email', response.data)
+            self.assertIn(INVALID_EMAIL_ERROR_MESSAGE, response.data["email"])
 
     def test_registration_email_already_registered(self):
         """Test si l'email est déjà utilisé par un autre utilisateur"""
@@ -147,7 +140,7 @@ class TestRegister(APITestCase):
         response = self.client.post(self.url, payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('non_field_errors', response.data)
-        self.assertIn("The two password fields didn't match.", response.data['non_field_errors'])
+        self.assertIn(PASSWORD_MISMATCH_ERROR_MESSAGE, response.data['non_field_errors'])
 
     def test_registration_password_too_short(self):
         invalid_payload = {
@@ -189,4 +182,16 @@ class TestRegister(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("password", response.data)
         self.assertIn(TOO_COMMON_PASSWORD_ERROR_MESSAGE, response.data["password"])
+
+    def test_registration_password_similar_to_username(self):
+        invalid_payload = {
+            "username": "testuser",
+            "email": "testuser@example.com",
+            "password": "testuser",
+            "re_password": "testuser"
+        }
+        response = self.client.post(self.url, invalid_payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("password", response.data)
+        self.assertIn(PASSWORD_TOO_CLOSE_USERNAME_ERROR_MESSAGE, response.data['password'])
 

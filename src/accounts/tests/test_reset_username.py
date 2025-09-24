@@ -9,9 +9,7 @@ from rest_framework import status
 
 from djoser import utils
 
-from accounts.tests import MANDATORY_FIELD_ERROR_MESSAGE, \
-    INVALID_EMAIL_ERROR_MESSAGE, INVALID_USER_ERROR_MESSAGE, INVALID_TOKEN_ERROR_MESSAGE, \
-    INVALID_USERNAME
+from accounts.tests import MANDATORY_FIELD_ERROR_MESSAGE, INVALID_EMAIL_ERROR_MESSAGE, INVALID_USER_ERROR_MESSAGE, INVALID_TOKEN_ERROR_MESSAGE, NOT_FOUND_ID
 
 User = get_user_model()
 
@@ -111,7 +109,7 @@ class TestResetUsernameEndpoints(APITestCase):
     @skip("Not implemented")
     def test_reset_username_confirm_invalid_uid(self):
         """Vérifie le message d'erreur pour un UID invalide"""
-        invalid_uid = utils.encode_uid(9999)  # UID d'un utilisateur inexistant
+        invalid_uid = utils.encode_uid(NOT_FOUND_ID)
         token = default_token_generator.make_token(self.user)
         response = self.client.post(self.reset_username_confirm_url, {
             "uid": invalid_uid,

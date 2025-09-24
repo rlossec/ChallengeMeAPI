@@ -2,8 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from rest_framework.exceptions import ValidationError
 
-from . import Question
-from .theme import Theme
+from themes.models.theme import Theme
 from .abstractquiz import AbstractQuiz
 
 User = get_user_model()
@@ -21,7 +20,7 @@ class MatchQuiz(AbstractQuiz):
         related_name='match_quizzes',
         blank=True
     )
-    questions = models.ManyToManyField(Question, related_name='match_quizzes', blank=True)
+    questions = models.ManyToManyField('questions.Question', related_name='match_quizzes', blank=True)
     base_url = models.URLField(blank=True, null=True)
 
     def save(self, *args, **kwargs):

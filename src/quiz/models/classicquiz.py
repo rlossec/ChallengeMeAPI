@@ -2,8 +2,8 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
-from quiz.models import Theme
-from quiz.models.abstractquiz import AbstractQuiz
+from themes.models.theme import Theme
+from .abstractquiz import AbstractQuiz
 
 User = get_user_model()
 
@@ -19,7 +19,7 @@ class ClassicQuiz(AbstractQuiz):
         related_name='classic_quizzes',
         blank=True
     )
-    questions = models.ManyToManyField('Question', related_name='classic_quizzes')
+    questions = models.ManyToManyField('questions.Question', related_name='classic_quizzes')
 
     def save(self, *args, **kwargs):
         if not self.type:

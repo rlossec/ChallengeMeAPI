@@ -1,8 +1,8 @@
 
 from rest_framework import serializers
 
-from quiz.models import ClassicQuiz
-from quiz.serializers import QuestionPlaySerializer
+from ..models import ClassicQuiz
+from questions.serializers import QuestionPlaySerializer
 
 
 class ClassicQuizSerializer(serializers.ModelSerializer):

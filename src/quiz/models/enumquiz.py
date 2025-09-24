@@ -2,8 +2,9 @@
 from django.contrib.auth import get_user_model
 from django.db import models
 
+from themes.models.theme import Theme
 from .abstractquiz import AbstractQuiz
-from .theme import Theme
+
 
 User = get_user_model()
 

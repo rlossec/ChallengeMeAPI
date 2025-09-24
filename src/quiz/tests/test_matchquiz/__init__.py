@@ -3,7 +3,8 @@
 from django.urls import reverse
 
 from rest_framework.test import APITestCase
-from quiz.models import MatchQuiz, Theme, MatchPair
+from ...models import MatchQuiz, MatchPair
+from themes.models import Theme
 from django.contrib.auth import get_user_model
 
 User = get_user_model()

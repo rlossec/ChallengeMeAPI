@@ -5,8 +5,8 @@ from rest_framework import status
 
 from django.contrib.auth import get_user_model
 
-from quiz.models import MatchPair
-from quiz.tests.test_matchquiz import TestMatchQuiz
+from ...models import MatchPair
+from ...tests.test_matchquiz import TestMatchQuiz
 
 User = get_user_model()
 
@@ -53,7 +53,7 @@ class TestMatchQuizUpdateEndpoint(TestMatchQuiz):
             updated_data,
             format="json"
         )
-        print("------test--------")
+
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.match_quiz.refresh_from_db()
         self.assertNotEqual(self.match_quiz.title, updated_data["title"])

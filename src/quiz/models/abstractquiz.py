@@ -3,7 +3,9 @@ import uuid
 from django.db import models
 from django.contrib.auth import get_user_model
 
-from .theme import Theme
+from themes.models.theme import Theme
+
+
 
 User = get_user_model()
 

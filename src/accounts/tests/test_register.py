@@ -6,8 +6,7 @@ from rest_framework import status
 
 from accounts.tests import INVALID_EMAIL_ERROR_MESSAGE, USERNAME_ALREADY_TAKEN_ERROR_MESSAGE, \
     PASSWORD_TOO_SHORT_ERROR_MESSAGE, PASSWORD_TOO_CLOSE_USERNAME_ERROR_MESSAGE, TOO_COMMON_PASSWORD_ERROR_MESSAGE, \
-    EMAIL_ALREADY_TAKEN_ERROR_MESSAGE, USERNAME_INVALID_CHARACTERS_ERROR_MESSAGE, USERNAME_TOO_LONG_ERROR_MESSAGE, \
-    PASSWORD_MISMATCH_ERROR_MESSAGE
+    EMAIL_ALREADY_TAKEN_ERROR_MESSAGE, USERNAME_INVALID_CHARACTERS_ERROR_MESSAGE, PASSWORD_MISMATCH_ERROR_MESSAGE, FIELD_TOO_LONG_ERROR_MESSAGE
 
 class TestRegister(APITestCase):
     def setUp(self):
@@ -79,7 +78,7 @@ class TestRegister(APITestCase):
         response = self.client.post(self.url, payload)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn("username", response.data)
-        self.assertIn(USERNAME_TOO_LONG_ERROR_MESSAGE, response.data["username"])
+        self.assertIn(FIELD_TOO_LONG_ERROR_MESSAGE, response.data["username"])
 
     def test_registration_username_already_registered(self):
         """Test si le nom d'utilisateur est déjà utilisé par un autre utilisateur"""

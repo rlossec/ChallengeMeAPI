@@ -3,7 +3,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, viewsets
 
-from quiz.models import ClassicQuiz, Question,  EnumQuiz, MatchQuiz
+from quiz.models import ClassicQuiz,  EnumQuiz, MatchQuiz
+from questions.models import Question
 from quiz.serializers import ClassicQuizSerializer, EnumQuizSerializer, MatchQuizSerializer
 
 

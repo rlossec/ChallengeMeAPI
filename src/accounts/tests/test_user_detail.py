@@ -6,7 +6,7 @@ from django.urls import reverse
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-from accounts.tests import MANDATORY_FIELD_ERROR_MESSAGE, NO_PERMISSION_ERROR_MESSAGE
+from accounts.tests import AUTHENTICATION_MISSING, INVALID_USER_ERROR_MESSAGE, MANDATORY_FIELD_ERROR_MESSAGE, NO_PERMISSION_ERROR_MESSAGE, NOT_FOUND_ID
 
 User = get_user_model()
 
@@ -51,7 +51,7 @@ class TestUserRetrieveUser(APITestCase):
             password="password289"
         )
 
-    # Success
+    # 200 Success
     def test_user_detail_success(self):
         """Un simple utilisateur ne peut pas accéder aux détails d'un autre utilisateur"""
         self.client.login(username="simpleuser", password="password12")
@@ -67,23 +67,31 @@ class TestUserRetrieveUser(APITestCase):
         self.assertEqual(response.data['first_name'], self.simple_user.first_name)
         self.assertIn('last_name', response.data)
         self.assertEqual(response.data['last_name'], self.simple_user.last_name)
+        self.assertIn('avatar', response.data)
+        self.assertEqual(response.data['avatar'], self.simple_user.avatar)
+        self.assertNotIn('password', response.data)
 
-    # Unauthenticated
+    # 401
+    ## Unauthenticated
     def test_get_user_unauthenticated(self):
         """Un utilisateur non authentifié ne peut pas accéder aux informations d'un utilisateur"""
         response = self.client.get(reverse("user-detail", args=[self.simple_user.pk]))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertIn('detail', response.data)
+        self.assertEqual(response.data['detail'], AUTHENTICATION_MISSING)
 
-    # Not Found
+    # 404 Not Found
     def test_get_user_not_found_user_id(self):
         self.client.login(username="simpleuser", password="password12")
-        response = self.client.get(reverse("user-detail", args=[999]))
+        response = self.client.get(reverse("user-detail", args=[NOT_FOUND_ID]))
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+        self.assertIn('detail', response.data)
+        self.assertEqual(response.data['detail'], "No User matches the given query.")
 
     # Test Permission
     ## Own information
     def test_user_detail_own_information_as_simple_user(self):
-        """Un simple utilisateur ne peut pas accéder aux détails d'un autre utilisateur"""
+        """Un simple utilisateur peut accéder à ses propres informations"""
         self.client.login(username="simpleuser", password="password12")
         response = self.client.get(reverse("user-detail", args=[self.simple_user.pk]))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -157,12 +165,12 @@ class TestUserUpdate(APITestCase):
             password="password289"
         )
 
-    ## Success
+    # 200 Success
     def test_put_user_update_success(self):
         """Un utilisateur peut mettre à jour ses informations sauf le username et le password"""
         self.client.login(username="simpleuser", password="password12")
         response = self.client.put(reverse("user-detail", args=[self.simple_user.pk]), {
-            "email": "simpleuser@example.com",
+            "email": self.simple_user.email,
             "first_name": "UpdatedFirstName",
             "last_name": "UpdatedLastName",
             "username": "newusername"
@@ -189,12 +197,12 @@ class TestUserUpdate(APITestCase):
         """Un utilisateur ne peut pas modifier son ID via PUT"""
         self.client.login(username="simpleuser", password="password12")
         response = self.client.put(reverse("user-detail", args=[self.simple_user.pk]), {
-            "id": 999,
-            "email": "simpleuser@example.com",
+            "id": NOT_FOUND_ID,
+            "email": self.simple_user.email,
         })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.simple_user.refresh_from_db()
-        self.assertEqual(self.simple_user.pk, self.simple_user.pk)
+        self.assertEqual(response.data['id'], self.simple_user.pk)
 
     def test_user_update_password(self):
         """Un utilisateur ne peut pas mettre à jour son mot de passe via PUT"""
@@ -207,7 +215,8 @@ class TestUserUpdate(APITestCase):
         self.simple_user.refresh_from_db()
         self.assertTrue(check_password("password12", self.simple_user.password))
 
-    # Unauthenticated
+    # 401
+    ## Unauthenticated
     def test_user_update_unauthenticated(self):
         """Un utilisateur sans authentification recevra une réponse 401."""
         response = self.client.put(reverse("user-detail", args=[self.simple_user.pk]), {
@@ -222,7 +231,7 @@ class TestUserUpdate(APITestCase):
         self.assertEqual(self.simple_user.last_name, "Aton")
         self.assertEqual(self.simple_user.username, "simpleuser")
 
-    # Not Found
+    # 404 Not Found
     def test_user_update_unknown_user(self):
         """Un simple utilisateur ne peut pas supprimer un utilisateur inconnu."""
         self.client.login(username="simpleuser", password="password12")
@@ -378,7 +387,7 @@ class TestUserDelete(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(User.objects.filter(pk=self.simple_user.pk).exists())
 
-    # Unauthenticated
+    # 401 Unauthenticated
     def test_user_delete_unauthenticated(self):
         """Un utilisateur sans authentification recevra une réponse 401."""
         response = self.client.delete(reverse("user-detail", args=[self.simple_user.pk]), {
@@ -386,7 +395,7 @@ class TestUserDelete(APITestCase):
         })
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
 
-    # Not Found
+    # 404 Not Found
     def test_user_delete_unknown_user(self):
         """Un simple utilisateur ne peut pas supprimer un utilisateur inconnu."""
         self.client.login(username="simpleuser", password="password12")

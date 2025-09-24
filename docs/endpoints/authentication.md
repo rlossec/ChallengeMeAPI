@@ -14,15 +14,15 @@
 | --- | --- | --- | --- | --- | --- |
 | **GET**	 | `auth/users/` | List users | ✅ | ✅ | [Détail](#5-liste-les-utilisateurs) |
 | --- | --- | --- | --- | --- | --- |
-| **GET**	 | `auth/users/me/` | Detail | ❌ | ❌ | [Détail](#61-récupération) |
-| **PUT** | `auth/users/me/` | Update | ❌ | ❌ | [Détail](#62-mise-à-jour)  |
-| **PATCH** | `auth/users/me/` | Partial Update | ❌ | ❌ | [Détail](#63-mise-à-jour-partielle)  |
-| **DELETE** | `auth/users/me/` | Delete | ❌| ❌ | [Détail](#64-suppression) |
+| **GET**	 | `auth/users/me/` | Detail | ✅ | ✅ | [Détail](#61-récupération) |
+| **PUT** | `auth/users/me/` | Update | ✅ | ✅ | [Détail](#62-mise-à-jour)  |
+| **PATCH** | `auth/users/me/` | Partial Update | ✅ | ✅ | [Détail](#63-mise-à-jour-partielle)  |
+| **DELETE** | `auth/users/me/` | Delete | ✅| ✅ | [Détail](#64-suppression) |
 | --- | --- | --- | --- | --- | --- |
-| **GET**	 | `auth/users/<user_id>/` | Detail | ❌ | ❌ | [Détail](#71-récupération)  |
-| **PUT** | `auth/users/<user_id>/` | Update | ❌ | ❌ | [Détail](#72-mise-à-jour)  |
-| **PATCH** | `auth/users/<user_id>/` | Partial Update | ❌ | ❌ | [Détail](#73-mise-à-jour-partielle)  |
-| **DELETE** | `auth/users/<user_id>/` | Delete | ❌| ❌ | [Détail](#74-suppression) |
+| **GET**	 | `auth/users/<user_id>/` | Detail | ✅ | ✅ | [Détail](#71-récupération)  |
+| **PUT** | `auth/users/<user_id>/` | Update | ✅ | ✅ | [Détail](#72-mise-à-jour)  |
+| **PATCH** | `auth/users/<user_id>/` | Partial Update | ✅ | ✅ | [Détail](#73-mise-à-jour-partielle)  |
+| **DELETE** | `auth/users/<user_id>/` | Delete | ✅| ✅ | [Détail](#74-suppression) |
 | --- | --- | --- | --- | --- | --- |
 | **POST**	 | `auth/users/reset_password/` | Reset pwd | ❌ | ❌ | [Détail](#81-requête-mot-de-passe) |
 | **POST** | `auth/users/reset_password_confirm/` | Confirm pwd reset | ❌ | ❌ | [Détail](#82-confirmation-mot-de-passe) |
@@ -259,10 +259,10 @@ Un staff ou superadmin peut voir tous les utilisateurs. ✅ ✅
 
 ### 6.1. Récupération
 
-**GET** `/auth/users/me/`
-
+**GET** `/auth/users/me/`  
+Privé : Nécessite un JWT  
 **Description** : Récupère le profil de l'utilisateur connecté (lié au JWT)  
-**Commande des tests** : `python manage.py test accounts.tests.` xxxx
+**Commande des tests** : `python manage.py test accounts.tests.test_user_me`
 
 
 #### Réponse de succès (200)
@@ -275,42 +275,119 @@ Un staff ou superadmin peut voir tous les utilisateurs. ✅ ✅
   "first_name": "John",
   "last_name": "Doe",
   "avatar": "/media/avatars/profile.jpg",
-  "is_active": true,
-  "date_joined": "2024-01-01T00:00:00Z"
 }
 ```
 
+#### Cas d'erreur
+
+- **401** : Absence de JWT         ✅
 
 
 ### 6.2. Mise à jour 
 
- **PATCH** `/auth/users/me/`
+**PUT** `/auth/users/me/`  
+Privé : Nécessite un JWT  
+**Description** : Met à jour le profil de l'utilisateur connecté. (lié au JWT)  
+**Commande des tests** : `python manage.py test accounts.tests.test_user_me`
 
-Met à jour le profil de l'utilisateur connecté.
+#### Body
+```json
+{
+  "email": "test@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "avatar": "/media/avatars/profile.jpg",
+}
+```
+
+⚠️ Attention:
+- L'email est obligatoire, il sert de vérification
+- Le changement d'email, mène à la désactivation du compte
+- Le username ne peut être modifier ainsi
+- Un champ `avatar` vide conduit à la suppression du précédent
+
+
+#### Cas d'erreur
+
+- **401** : Absence de JWT                          ✅
+- **400** : 
+  * Champ manquant obligatoire : `email`            ✅
+  * `email` invalide                                ✅
+  * `email` déjà en BDD                             ✅
+  * `first_name` ou `last_name` trop long           ✅
+
 
 
 ### 6.3. Mise à jour partielle
 
- **PATCH** `/auth/users/me/`
+**PATCH** `/auth/users/me/`
+**Description** : Met à jour le profil de l'utilisateur connecté. (lié au JWT)  
+**Commande des tests** : `python manage.py test accounts.tests.test_user_me`
 
-Met à jour le profil de l'utilisateur connecté.
+#### Body
+```json
+{
+  "email": "test@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "avatar": "/media/avatars/profile.jpg",
+}
+```
 
+⚠️ Attention:
+- Le changement d'email, mène à la désactivation du compte
+- Le username ne peut être modifier ainsi
+- Un champ `avatar` vide conduit à la suppression du précédent
+
+
+#### Cas d'erreur
+
+- **401** : Absence de JWT                          ✅
+- **400** : 
+  * Champ manquant obligatoire : `email`            ✅
+  * `email` invalide                                ✅
+  * `email` déjà en BDD                             ✅
+  * `first_name` ou `last_name` trop long           ✅
 
 ### 6.4. Suppression 
 
- **PATCH** `/auth/users/me/`
+**PATCH** `/auth/users/me/`  
+Privé : Nécessite un JWT  
+**Description** : Supprime le profil de l'utilisateur connecté. (lié au JWT)  
+**Commande des tests** : `python manage.py test accounts.tests.test_user_me`
 
-Supprime le profil de l'utilisateur connecté.
+#### Body
+```json
+{
+  "current_password": "******",
+}
+```
+Si le compte est déjà supprimé
+```json
+{
+    "detail": "User not found",
+    "code": "user_not_found"
+}
+```
+#### Réponse 204 No content
+
+#### Cas d'erreur
+
+- **401** : 
+  * Absence de JWT                                  ✅
+  * Compte associé au JWT déjà supprimé             ✅
+- **400** : 
+  * Champ manquant obligatoire : `current_password` ✅
 
 ## 7. Profil utilisateur avec son id
 
 ### 7.1. Récupération
 
-**GET** `/auth/users/<user_id>/`
+**GET** `auth/users/<user_id>/`  
+Privé : Nécessite un JWT  
 
 **Description** : Récupère le profil de l'utilisateur associé à l'id
-**Commande des tests** : `python manage.py test accounts.tests.` xxxx
-
+**Commande des tests** : `python manage.py test accounts.tests.test_user_detail`
 
 #### Réponse de succès (200)
 
@@ -322,8 +399,7 @@ Supprime le profil de l'utilisateur connecté.
   "first_name": "John",
   "last_name": "Doe",
   "avatar": "/media/avatars/profile.jpg",
-  "is_active": true,
-  "date_joined": "2024-01-01T00:00:00Z"
+
 }
 ```
 
@@ -331,30 +407,87 @@ Supprime le profil de l'utilisateur connecté.
 
 ### 7.2. Mise à jour 
 
- **PATCH** `/auth/users/<user_id>/`
+**PATCH** `/auth/users/<user_id>/`  
+Privé : Nécessite un JWT  
+**Description** : Met à jour le profil de l'utilisateur.
+**Commande des tests** : `python manage.py test accounts.tests.test_user_detail`
 
-Met à jour le profil de l'utilisateur.
+#### Body
+```json
+{
+  "email": "test@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "avatar": "/media/avatars/profile.jpg",
+}
+```
 
+⚠️ Attention:
+- L'email est obligatoire, il sert de vérification
+- Le changement d'email, mène à la désactivation du compte
+- Le username ne peut être modifier ainsi
+- Un champ `avatar` vide conduit à la suppression du précédent
+
+#### Cas d'erreur
+
+- **401** : Absence de JWT                          ✅
+- **400** : 
+  * Champ manquant obligatoire : `email`            
+  * `email` invalide                                
+  * `email` déjà en BDD                             
+  * `first_name` ou `last_name` trop long           
+- **404** : Id Not Found                            ✅
 
 ### 7.3. Mise à jour partielle
 
- **PATCH** `/auth/users/<user_id>/`
+**PATCH** `/auth/users/<user_id>/`  
+Privé : Nécessite un JWT  
+**Description** : Met à jour le profil de l'utilisateur.
+**Commande des tests** : `python manage.py test accounts.tests.test_user_detail`
 
-Met à jour le profil de l'utilisateur.
+#### Body
+```json
+{
+  "email": "test@example.com",
+  "first_name": "John",
+  "last_name": "Doe",
+  "avatar": "/media/avatars/profile.jpg",
+}
+```
+
+⚠️ Attention:
+- Le changement d'email, mène à la désactivation du compte
+- Le username ne peut être modifier ainsi
+- Un champ `avatar` vide conduit à la suppression du précédent
+
+#### Cas d'erreur
+
+- **401** : Absence de JWT                          
+- **400** :         
+  * `email` invalide                                
+  * `email` déjà en BDD                             
+  * `first_name` ou `last_name` trop long           
+- **404** : Id Not Found                            
 
 
 ### 7.4. Suppression 
 
- **PATCH** `/auth/users/<user_id>/`
+**PATCH** `/auth/users/<user_id>/`  
+Privé : Nécessite un JWT  
+**Description** : Supprime le profil de l'utilisateur
+**Commande des tests** : `python manage.py test accounts.tests.test_user_detail`
 
-Supprime le profil de l'utilisateur
+#### Cas d'erreur
 
+- **401** : Absence de JWT                 ✅                        
+- **404** : Id Not Found                   ✅
 
 ## 8. Réinitialisations
 
 ### 8.1. Requête mot de passe
 
-**POST** `/auth/users/reset_password/`
+**POST** `/auth/users/reset_password/`  
+Public
 
 Demande une réinitialisation de mot de passe.
 
@@ -368,7 +501,8 @@ Demande une réinitialisation de mot de passe.
 
 ### 8.2. Confirmation mot de passe
 
-**POST** `/auth/users/reset_password_confirm/`
+**POST** `/auth/users/reset_password_confirm/`  
+Public  
 
 Confirme la réinitialisation avec le token.
 
@@ -386,8 +520,13 @@ Confirme la réinitialisation avec le token.
 
 ### 8.3. Requête nom d'utilisateur
 
+**POST** `auth/users/reset_username/`
+Public
+
 ### 8.4. Confirmation nom d'utilisateur
 
+**POST** | `auth/users/reset_username_confirm/`
+Public
 
 
 ## 9. Changement des informations sensibles
@@ -396,8 +535,8 @@ Confirme la réinitialisation avec le token.
 ### 9.1. Changement de mot de passe
 
 **POST** `/auth/users/set_password/`
-
-Change le mot de passe de l'utilisateur connecté.
+Privé : Nécessite un JWT  
+**Description** : Change le mot de passe de l'utilisateur connecté.
 
 #### Paramètres
 
@@ -412,8 +551,8 @@ Change le mot de passe de l'utilisateur connecté.
 ### 9.2. Changement du nom d'utilisateur
 
 **POST** `/auth/users/set_username/`
-
-Change le mot de passe de l'utilisateur connecté.
+Privé : Nécessite un JWT  
+**Description** : Change le mot de passe de l'utilisateur connecté.
 
 #### Paramètres
 

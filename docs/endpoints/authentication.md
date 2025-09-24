@@ -3,36 +3,35 @@
 |  | url | Description | Implement | Tests |
 | --- | --- | --- | --- | --- |
 | **POST**	 | `auth/users/` | Register | ❌ | ❌ |
-
+| --- | --- | --- | --- | --- |
 | **POST** | `auth/users/activation/` | Activate account | ❌ | ❌ |
 | **POST**	 | `auth/users/resend_activation/` | Resend activation email | ❌ | ❌ |
-
+| --- | --- | --- | --- | --- |
 | **POST** | `auth/jwt/create/` | Login -> JWT Tokens | ❌ | ❌ |
-
+| --- | --- | --- | --- | --- |
 | **POST** | `auth/jwt/refresh/` | Refresh JWT Token | ❌ | ❌ |
 | **POST** | `auth/jwt/verify/` | Delete | ❌| ❌ |
-
+| --- | --- | --- | --- | --- |
 | **GET**	 | `auth/users/` | List users | ❌ | ❌ |
-
+| --- | --- | --- | --- | --- |
 | **GET**	 | `auth/users/me/` | Detail | ❌ | ❌ |
 | **PUT** | `auth/users/me/` | Update | ❌ | ❌ |
 | **PATCH** | `auth/users/me/` | Partial Update | ❌ | ❌ |
 | **DELETE** | `auth/users/me/` | Delete | ❌| ❌ |
-
+| --- | --- | --- | --- | --- |
 | **GET**	 | `auth/users/<user_id>/` | Detail | ❌ | ❌ |
 | **PUT** | `auth/users/<user_id>/` | Update | ❌ | ❌ |
 | **PATCH** | `auth/users/<user_id>/` | Partial Update | ❌ | ❌ |
 | **DELETE** | `auth/users/<user_id>/` | Delete | ❌| ❌ |
-
+| --- | --- | --- | --- | --- |
 | **POST**	 | `auth/users/reset_password/` | Reset pwd | ❌ | ❌ |
 | **POST** | `auth/users/reset_password_confirm/` | Confirm pwd reset | ❌ | ❌ |
-
+| --- | --- | --- | --- | --- |
 | **POST** | `auth/users/reset_username/` | Reset username | ❌ | ❌ |
 | **POST** | `auth/users/reset_username_confirm/` | Confirm username reset | ❌| ❌ |
-
+| --- | --- | --- | --- | --- |
 | **POST** | `auth_users_set_password` | Set username | ❌ | ❌ |
 | **POST** | `auth/users/set_username/` | Set username | ❌| ❌ |
-
 
 
 ---

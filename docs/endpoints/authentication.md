@@ -4,7 +4,7 @@
 | --- | --- | --- | --- | --- |
 | **POST**	 | `auth/users/` | Register | ❌ | ❌ |
 
-| **POST** | `auth/users/activation//` | Activate account | ❌ | ❌ |
+| **POST** | `auth/users/activation/` | Activate account | ❌ | ❌ |
 | **POST**	 | `auth/users/resend_activation/` | Resend activation email | ❌ | ❌ |
 
 | **POST** | `auth/jwt/create/` | Login -> JWT Tokens | ❌ | ❌ |

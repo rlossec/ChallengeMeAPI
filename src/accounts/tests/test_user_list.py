@@ -66,11 +66,12 @@ class TestUserListEndpoint(APITestCase):
 
     def test_staff_user_can_see_all_users(self):
         """Test pour vérifier qu'un administrateur peut voir tous les utilisateurs"""
+        nb_users = User.objects.count()
         self.client.login(username="superuser1", password="password189")
         response = self.client.get(self.user_list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data, list)
-        self.assertEqual(len(response.data), 7)
+        self.assertEqual(len(response.data), nb_users)
 
         # Vérifie que tous les utilisateurs sont présents dans la réponse
         emails = [user['email'] for user in response.data]
@@ -84,11 +85,12 @@ class TestUserListEndpoint(APITestCase):
 
     def test_superadmin_user_can_see_all_users(self):
         """Test pour vérifier qu'un administrateur peut voir tous les utilisateurs"""
+        nb_users = User.objects.count()
         self.client.login(username="staffuser1", password="password145")
         response = self.client.get(self.user_list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.data, list)
-        self.assertEqual(len(response.data), 7)
+        self.assertEqual(len(response.data), nb_users)
 
         # Vérifie que tous les utilisateurs sont présents dans la réponse
         emails = [user['email'] for user in response.data]
@@ -96,7 +98,8 @@ class TestUserListEndpoint(APITestCase):
         self.assertIn(self.staff_user1.email, emails)
         self.assertIn(self.superuser1.email, emails)
 
-    # Unauthenticated
+    # 401
+    ## Unauthenticated
     def test_access_user_list_unauthenticated(self):
         response = self.client.get(self.user_list_url)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

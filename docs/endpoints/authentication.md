@@ -12,7 +12,7 @@
 | **POST** | `auth/jwt/refresh/` | Refresh JWT Token | ✅ | ✅ | [Détail](#41-rafraîchissement-du-token) |
 | **POST** | `auth/jwt/verify/` | Delete | ✅| ✅ | [Détail](#42-vérification-du-token) |
 | --- | --- | --- | --- | --- | --- |
-| **GET**	 | `auth/users/` | List users | ❌ | ❌ | [Détail](#5-liste-les-utilisateurs) |
+| **GET**	 | `auth/users/` | List users | ✅ | ✅ | [Détail](#5-liste-les-utilisateurs) |
 | --- | --- | --- | --- | --- | --- |
 | **GET**	 | `auth/users/me/` | Detail | ❌ | ❌ | [Détail](#61-récupération) |
 | **PUT** | `auth/users/me/` | Update | ❌ | ❌ | [Détail](#62-mise-à-jour)  |
@@ -241,19 +241,27 @@ TODO : Override pour soit un 204, soit un booléen true ?
 
 ## 5. Liste les utilisateurs
 
-**GET** `/auth/users/`
+**GET** `/auth/users/`  
+Privé : Nécessite un JWT  
+**Description** : Liste les utilisateurs actifs  
+**Commande des tests** : `python manage.py test accounts.tests.test_user_list`
 
-**Description** : Liste les utilisateurs actifs
-**Commande des tests** : `python manage.py test accounts.tests.` xxxx
+#### Permissions
+Un utilisateur simple ne voit que son instance user dans la liste. ✅
+Un staff ou superadmin peut voir tous les utilisateurs. ✅ ✅
 
+#### Cas d'erreur
+
+- **401** : Absence de JWT         ✅
 
 
 ## 6. Son profil utilisateur
 
 ### 6.1. Récupération
+
 **GET** `/auth/users/me/`
 
-**Description** : Récupère le profil de l'utilisateur connecté (lié au JWT)
+**Description** : Récupère le profil de l'utilisateur connecté (lié au JWT)  
 **Commande des tests** : `python manage.py test accounts.tests.` xxxx
 
 

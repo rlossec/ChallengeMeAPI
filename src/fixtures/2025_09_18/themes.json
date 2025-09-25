@@ -1,0 +1,461 @@
+[
+  {
+    "model": "themes.theme",
+    "pk": 1,
+    "fields": {
+      "name": "GÚographie",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#2a7acb",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 2,
+    "fields": {
+      "name": "Histoire",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#fec701",
+      "order": 2
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 3,
+    "fields": {
+      "name": "MÚdia et Divertissements",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#ce1383",
+      "order": 1
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 4,
+    "fields": {
+      "name": "Arts et LittÚratures",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#8c348d",
+      "order": 3
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 5,
+    "fields": {
+      "name": "Sports et Loisirs",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#f39011",
+      "order": 4
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 6,
+    "fields": {
+      "name": "Sciences et Technologies",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#4da42a",
+      "order": 5
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 21,
+    "fields": {
+      "name": "Divers",
+      "description": "",
+      "parent_theme": 25,
+      "image": "",
+      "color": "#808080",
+      "order": 6
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 22,
+    "fields": {
+      "name": "Drapeaux",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#5abc4e",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 23,
+    "fields": {
+      "name": "Afrique",
+      "description": "",
+      "parent_theme": 22,
+      "image": "",
+      "color": null,
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 24,
+    "fields": {
+      "name": "Capitales",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#d36f6f",
+      "order": 1
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 25,
+    "fields": {
+      "name": "Classiques",
+      "description": "",
+      "parent_theme": null,
+      "image": "",
+      "color": null,
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 26,
+    "fields": {
+      "name": "AntiquitÚ",
+      "description": "",
+      "parent_theme": 2,
+      "image": "",
+      "color": "#2e9935",
+      "order": 1
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 27,
+    "fields": {
+      "name": "PrÚhistoire",
+      "description": "",
+      "parent_theme": 2,
+      "image": "",
+      "color": "#e9e335",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 28,
+    "fields": {
+      "name": "Moyen-Age",
+      "description": "",
+      "parent_theme": 2,
+      "image": "",
+      "color": "#000000",
+      "order": 2
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 29,
+    "fields": {
+      "name": "Renaissance",
+      "description": "",
+      "parent_theme": 2,
+      "image": "",
+      "color": "#3781e1",
+      "order": 3
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 30,
+    "fields": {
+      "name": "Epoque moderne",
+      "description": "",
+      "parent_theme": 2,
+      "image": "",
+      "color": "#7b21e8",
+      "order": 4
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 31,
+    "fields": {
+      "name": "Epoque contemporaine",
+      "description": "",
+      "parent_theme": 2,
+      "image": "",
+      "color": "#b80000",
+      "order": 5
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 33,
+    "fields": {
+      "name": "Afrique",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#000000",
+      "order": 2
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 34,
+    "fields": {
+      "name": "OcÚanie",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#0fa312",
+      "order": 3
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 35,
+    "fields": {
+      "name": "Europe",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#2926df",
+      "order": 4
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 36,
+    "fields": {
+      "name": "AmÚrique",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#c21414",
+      "order": 5
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 37,
+    "fields": {
+      "name": "Asie",
+      "description": "",
+      "parent_theme": 1,
+      "image": "",
+      "color": "#f0e933",
+      "order": 6
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 39,
+    "fields": {
+      "name": "Originaux",
+      "description": "",
+      "parent_theme": null,
+      "image": "",
+      "color": null,
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 40,
+    "fields": {
+      "name": "Informatique",
+      "description": "",
+      "parent_theme": null,
+      "image": "",
+      "color": null,
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 49,
+    "fields": {
+      "name": "Web",
+      "description": "",
+      "parent_theme": 40,
+      "image": "",
+      "color": "#fc8d8d",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 50,
+    "fields": {
+      "name": "DevOps",
+      "description": "",
+      "parent_theme": 40,
+      "image": "",
+      "color": "#000000",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 51,
+    "fields": {
+      "name": "HTML et CSS",
+      "description": "",
+      "parent_theme": 49,
+      "image": "",
+      "color": "#a00303",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 52,
+    "fields": {
+      "name": "Javascript",
+      "description": "",
+      "parent_theme": 49,
+      "image": "",
+      "color": "#e0d90b",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 53,
+    "fields": {
+      "name": "Linux",
+      "description": "",
+      "parent_theme": 40,
+      "image": "",
+      "color": "#ece632",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 54,
+    "fields": {
+      "name": "Mythologie",
+      "description": "",
+      "parent_theme": 26,
+      "image": "",
+      "color": "#3df5b8",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 55,
+    "fields": {
+      "name": "Egyptienne",
+      "description": "",
+      "parent_theme": 54,
+      "image": "",
+      "color": "#eef20d",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 56,
+    "fields": {
+      "name": "Je Suis",
+      "description": "",
+      "parent_theme": 39,
+      "image": "",
+      "color": "#000000",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.theme",
+    "pk": 57,
+    "fields": {
+      "name": "Nature",
+      "description": "",
+      "parent_theme": 6,
+      "image": "",
+      "color": "#70ff8d",
+      "order": 0
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 31,
+    "fields": {
+      "user": 1,
+      "theme": 3,
+      "added_at": "2025-01-07T20:39:03.929Z"
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 32,
+    "fields": {
+      "user": 1,
+      "theme": 4,
+      "added_at": "2025-01-07T20:39:05.882Z"
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 34,
+    "fields": {
+      "user": 4,
+      "theme": 3,
+      "added_at": "2025-01-10T14:12:39.344Z"
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 38,
+    "fields": {
+      "user": 4,
+      "theme": 4,
+      "added_at": "2025-01-14T23:22:47.261Z"
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 40,
+    "fields": {
+      "user": 4,
+      "theme": 27,
+      "added_at": "2025-01-15T00:40:24.308Z"
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 41,
+    "fields": {
+      "user": 4,
+      "theme": 56,
+      "added_at": "2025-01-16T17:00:47.224Z"
+    }
+  },
+  {
+    "model": "themes.favorite",
+    "pk": 42,
+    "fields": {
+      "user": 4,
+      "theme": 1,
+      "added_at": "2025-01-24T15:47:02.110Z"
+    }
+  }
+]

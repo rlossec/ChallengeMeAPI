@@ -1,0 +1,442 @@
+[
+{
+  "model": "questions.question",
+  "pk": 1,
+  "fields": {
+    "theme": 35,
+    "question_type": "TXT",
+    "question_text": "Quelle est la capitale de la France ?",
+    "image": "",
+    "correct_answer": "Paris",
+    "accept_close_answer": true,
+    "difficulty": 0.0,
+    "valid": true,
+    "fake_answer_1": "Lyon",
+    "fake_answer_2": "Berne",
+    "fake_answer_3": "Marseille",
+    "explanation": "",
+    "created_at": "2024-12-23T23:45:59.436Z",
+    "updated_at": "2025-01-30T14:45:27.787Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 2,
+  "fields": {
+    "theme": 35,
+    "question_type": "TXT",
+    "question_text": "Quelle est la capitale de la Serbie ?",
+    "image": "",
+    "correct_answer": "Belgrade",
+    "accept_close_answer": true,
+    "difficulty": 4.7,
+    "valid": true,
+    "fake_answer_1": "Podgorica",
+    "fake_answer_2": "Skopja",
+    "fake_answer_3": "Sarajevo",
+    "explanation": "",
+    "created_at": "2025-01-06T20:38:57.868Z",
+    "updated_at": "2025-01-30T14:46:35.331Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 3,
+  "fields": {
+    "theme": 1,
+    "question_type": "TXT",
+    "question_text": "Quel pays est nÚ de la fusion entre le Tanganyika et le Zanzibar ?",
+    "image": "",
+    "correct_answer": "Tanzanie",
+    "accept_close_answer": true,
+    "difficulty": 5.5,
+    "valid": true,
+    "fake_answer_1": "",
+    "fake_answer_2": "",
+    "fake_answer_3": "",
+    "explanation": "Le Tanganyika et le Zanzibar fusionnent Ó l'intÚrieur d'une RÚpublique du Tanganyika et de Zanzibar qui deviendra, en octobre 1964, la RÚpublique unie de Tanzanie.",
+    "created_at": "2025-01-11T14:55:34.385Z",
+    "updated_at": "2025-01-30T14:48:15.201Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 4,
+  "fields": {
+    "theme": 33,
+    "question_type": "CHO",
+    "question_text": "Quelle est environ la superficie du continent africain en km▓ ?",
+    "image": "",
+    "correct_answer": "30000000",
+    "accept_close_answer": false,
+    "difficulty": 3.9,
+    "valid": false,
+    "fake_answer_1": "100000000",
+    "fake_answer_2": "50000000",
+    "fake_answer_3": "10000000",
+    "explanation": "Elle est d'exactement 30 415 873 km▓.",
+    "created_at": "2025-01-14T22:32:28.831Z",
+    "updated_at": "2025-01-30T14:47:50.436Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 6,
+  "fields": {
+    "theme": 33,
+    "question_type": "CHO",
+    "question_text": "Combien de pays composent le continent africain ?",
+    "image": "",
+    "correct_answer": "54",
+    "accept_close_answer": false,
+    "difficulty": 3.1,
+    "valid": false,
+    "fake_answer_1": "64",
+    "fake_answer_2": "44",
+    "fake_answer_3": "74",
+    "explanation": "",
+    "created_at": "2025-01-14T22:43:29.262Z",
+    "updated_at": "2025-01-30T14:47:43.621Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 7,
+  "fields": {
+    "theme": 36,
+    "question_type": "CHO",
+    "question_text": "Quel est le plus long fleuve d'AmÚrique du Sud ?",
+    "image": "",
+    "correct_answer": "Amazone",
+    "accept_close_answer": true,
+    "difficulty": 2.0,
+    "valid": false,
+    "fake_answer_1": "Rio de la Plata",
+    "fake_answer_2": "Mississippi",
+    "fake_answer_3": "OrÚnoque",
+    "explanation": "L'Amazone est non seulement le plus long fleuve d'AmÚrique (environ 7 000 km), mais il transporte aussi plus d'eau que tout autre fleuve au monde.",
+    "created_at": "2025-01-14T23:52:58.795Z",
+    "updated_at": "2025-01-30T14:46:55.434Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 8,
+  "fields": {
+    "theme": 37,
+    "question_type": "CHO",
+    "question_text": "Quel pays abrite le point culminant dÆAsie, le mont Everest ?",
+    "image": "",
+    "correct_answer": "NÚpal",
+    "accept_close_answer": true,
+    "difficulty": 4.0,
+    "valid": false,
+    "fake_answer_1": "Chine",
+    "fake_answer_2": "Inde",
+    "fake_answer_3": "Bhoutan",
+    "explanation": "Le mont Everest sÆÚlÞve Ó 8 849 mÞtres. En nÚpalais, il est appelÚ \"Sagarmatha\" et en tibÚtain \"Chomolungma,\" ce qui signifie \"DÚesse mÞre des vents.\"",
+    "created_at": "2025-01-14T23:57:27.555Z",
+    "updated_at": "2025-01-30T14:48:00.603Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 9,
+  "fields": {
+    "theme": 35,
+    "question_type": "TXT",
+    "question_text": "Quelle est la plus grande ¯le dÆEurope ?",
+    "image": "",
+    "correct_answer": "Grande Bretagne",
+    "accept_close_answer": true,
+    "difficulty": 2.9,
+    "valid": false,
+    "fake_answer_1": "Islande",
+    "fake_answer_2": "Sicile",
+    "fake_answer_3": "Irlande",
+    "explanation": "Avec ses 209 331 km², la Grande-Bretagne est la plus grande île d’Europe et la neuvième plus grande du monde. Elle abrite trois nations : l'Angleterre, l'Écosse, et le Pays de Galles.",
+    "created_at": "2025-01-14T23:58:52.825Z",
+    "updated_at": "2025-09-24T11:33:00.478Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 10,
+  "fields": {
+    "theme": 34,
+    "question_type": "CHO",
+    "question_text": "Quelle est la capitale de lÆAustralie ?",
+    "image": "",
+    "correct_answer": "Canberra",
+    "accept_close_answer": false,
+    "difficulty": 3.0,
+    "valid": false,
+    "fake_answer_1": "Sydney",
+    "fake_answer_2": "Melbourne",
+    "fake_answer_3": "Brisbane",
+    "explanation": "Canberra a ÚtÚ choisie comme capitale en 1908 pour Úviter une rivalitÚ entre Sydney et Melbourne. Elle est une ville entiÞrement planifiÚe, conþue par les architectes amÚricains Walter Burley Griffin et Marion Mahony Griffin.",
+    "created_at": "2025-01-15T00:05:11.935Z",
+    "updated_at": "2025-01-30T14:47:14.817Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 11,
+  "fields": {
+    "theme": 27,
+    "question_type": "CHO",
+    "question_text": "Quelle est lÆinvention qui marque la fin de la PrÚhistoire ?",
+    "image": "",
+    "correct_answer": "LÆÚcriture",
+    "accept_close_answer": false,
+    "difficulty": 1.7,
+    "valid": false,
+    "fake_answer_1": "Le feu",
+    "fake_answer_2": "LÆagriculture",
+    "fake_answer_3": "Les outils en pierre",
+    "explanation": "",
+    "created_at": "2025-01-15T00:11:29.055Z",
+    "updated_at": "2025-01-30T14:48:27.766Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 12,
+  "fields": {
+    "theme": 27,
+    "question_type": "TXT",
+    "question_text": "O¨ les premiers Homo sapiens sont-ils apparus ?",
+    "image": "",
+    "correct_answer": "Afrique",
+    "accept_close_answer": true,
+    "difficulty": 2.1,
+    "valid": true,
+    "fake_answer_1": "Asie",
+    "fake_answer_2": "Europe",
+    "fake_answer_3": "AmÚrique",
+    "explanation": "",
+    "created_at": "2025-01-15T00:21:37.290Z",
+    "updated_at": "2025-01-30T14:49:02.015Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 13,
+  "fields": {
+    "theme": 27,
+    "question_type": "TXT",
+    "question_text": "Quelle pÚriode est aussi appelÚe \"Ôge de pierre polie\" ?",
+    "image": "",
+    "correct_answer": "NÚolithique",
+    "accept_close_answer": false,
+    "difficulty": 2.6,
+    "valid": false,
+    "fake_answer_1": "PalÚolithique",
+    "fake_answer_2": "┬ge du bronze",
+    "fake_answer_3": "┬ge de fer",
+    "explanation": "Le NÚolithique a vu lÆapparition de lÆagriculture et des premiÞres grandes sociÚtÚs",
+    "created_at": "2025-01-15T00:24:47.670Z",
+    "updated_at": "2025-01-30T14:49:09.382Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 14,
+  "fields": {
+    "theme": 27,
+    "question_type": "TXT",
+    "question_text": "Quel animal aurait ÚtÚ domestiquÚ en premier ?",
+    "image": "",
+    "correct_answer": "Chien",
+    "accept_close_answer": true,
+    "difficulty": 2.2,
+    "valid": false,
+    "fake_answer_1": "Cheval",
+    "fake_answer_2": "Mouton",
+    "fake_answer_3": "Vache",
+    "explanation": "Au PalÚolithique supÚrieur, il y a 15 000 ans, des premiÞres traces de chiens ont ÚtÚ dÚcouvertes sur des sites magdalÚniens comme dans l'abri du Morin en Gironde",
+    "created_at": "2025-01-15T00:26:11.242Z",
+    "updated_at": "2025-01-30T14:48:51.136Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 15,
+  "fields": {
+    "theme": 55,
+    "question_type": "CHO",
+    "question_text": "Qui est considÚrÚ comme le premier pharaon dÆ╔gypte ?",
+    "image": "",
+    "correct_answer": "Narmer",
+    "accept_close_answer": true,
+    "difficulty": 7.1,
+    "valid": false,
+    "fake_answer_1": "Djet",
+    "fake_answer_2": "Djeser",
+    "fake_answer_3": "Hor-Aha",
+    "explanation": "Ce monarque est considÚrÚ comme le premier pharaon de lÆ╔gypte ancienne et a rÚgnÚ aux environs de 3000 avant notre Þre.",
+    "created_at": "2025-01-16T16:07:39.087Z",
+    "updated_at": "2025-01-30T14:51:10.198Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 16,
+  "fields": {
+    "theme": 54,
+    "question_type": "TXT",
+    "question_text": "Dans le guerre de Troie, par quel terme HomÞre dÚsigne les armÚes d'Agamemnon ?",
+    "image": "",
+    "correct_answer": "AchÚens",
+    "accept_close_answer": true,
+    "difficulty": 7.6,
+    "valid": false,
+    "fake_answer_1": "",
+    "fake_answer_2": "",
+    "fake_answer_3": "",
+    "explanation": "",
+    "created_at": "2025-01-16T16:13:07.398Z",
+    "updated_at": "2025-01-30T14:51:35.990Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 17,
+  "fields": {
+    "theme": 26,
+    "question_type": "TXT",
+    "question_text": "Quel pharaon sÆillustra durant la bataille de Qadesh ?",
+    "image": "",
+    "correct_answer": "RamsÞs II",
+    "accept_close_answer": true,
+    "difficulty": 5.8,
+    "valid": false,
+    "fake_answer_1": "",
+    "fake_answer_2": "",
+    "fake_answer_3": "",
+    "explanation": "",
+    "created_at": "2025-01-16T16:15:10.071Z",
+    "updated_at": "2025-01-30T14:50:47.949Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 18,
+  "fields": {
+    "theme": 26,
+    "question_type": "TXT",
+    "question_text": "Quelle serait la date de la fondation de Carthage par Didon ?",
+    "image": "",
+    "correct_answer": "- 814",
+    "accept_close_answer": false,
+    "difficulty": 8.5,
+    "valid": false,
+    "fake_answer_1": null,
+    "fake_answer_2": null,
+    "fake_answer_3": null,
+    "explanation": "",
+    "created_at": "2025-01-16T16:16:33.944Z",
+    "updated_at": "2025-09-24T11:30:42.188Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 20,
+  "fields": {
+    "theme": 26,
+    "question_type": "TXT",
+    "question_text": "Quelle est la date de la chute dÚfinitive de lÆEmpire romain ?",
+    "image": "",
+    "correct_answer": "476",
+    "accept_close_answer": false,
+    "difficulty": 3.4,
+    "valid": false,
+    "fake_answer_1": "",
+    "fake_answer_2": "",
+    "fake_answer_3": "",
+    "explanation": "",
+    "created_at": "2025-01-16T16:21:34.008Z",
+    "updated_at": "2025-01-30T14:50:18.918Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 22,
+  "fields": {
+    "theme": 26,
+    "question_type": "CHO",
+    "question_text": "Qui pouvait participer aux Jeux Olympiques antiques ?",
+    "image": "",
+    "correct_answer": "Les hommes libres des citÚs grecques",
+    "accept_close_answer": false,
+    "difficulty": 5.0,
+    "valid": true,
+    "fake_answer_1": "Les hommes et femmes de GrÞce",
+    "fake_answer_2": "Tout le monde",
+    "fake_answer_3": "Les hommes engagÚs dans l'armÚe",
+    "explanation": "",
+    "created_at": "2025-01-21T14:38:40.050Z",
+    "updated_at": "2025-01-29T23:10:36.134Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 23,
+  "fields": {
+    "theme": 26,
+    "question_type": "CHO",
+    "question_text": "En 508 av. J.C., qui rÚorganize la vie politique d'AthÞnes et fortifie la dÚmocratie ?",
+    "image": "",
+    "correct_answer": "ClisthÞne",
+    "accept_close_answer": false,
+    "difficulty": 9.0,
+    "valid": true,
+    "fake_answer_1": "Aristote",
+    "fake_answer_2": "ThÚmistocle",
+    "fake_answer_3": "PÚriclÞs",
+    "explanation": "",
+    "created_at": "2025-01-21T14:38:40.052Z",
+    "updated_at": "2025-01-29T23:10:42.443Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 24,
+  "fields": {
+    "theme": 26,
+    "question_type": "CHO",
+    "question_text": "En quelle annÚe a eu lieu la bataille de Marathon ?",
+    "image": "",
+    "correct_answer": "En 490 av. J.C.",
+    "accept_close_answer": false,
+    "difficulty": 6.0,
+    "valid": true,
+    "fake_answer_1": "En 590 av. J.C.",
+    "fake_answer_2": "En 510 av. J.C.",
+    "fake_answer_3": "En 540 av. J.C.",
+    "explanation": "",
+    "created_at": "2025-01-21T14:38:40.053Z",
+    "updated_at": "2025-01-29T23:10:51.751Z"
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 25,
+  "fields": {
+    "theme": 26,
+    "question_type": "CHO",
+    "question_text": "A AthÞnes, que dÚsignait un mÚtÞque ?",
+    "image": "",
+    "correct_answer": "un rÚsident Útranger d'une autre citÚ grecque",
+    "accept_close_answer": false,
+    "difficulty": 6.0,
+    "valid": true,
+    "fake_answer_1": "un Útranger non grec",
+    "fake_answer_2": "un grec d'une citÚ alliÚe",
+    "fake_answer_3": "un Útranger banni de la citÚ",
+    "explanation": "",
+    "created_at": "2025-01-21T14:38:40.054Z",
+    "updated_at": "2025-01-29T23:11:07.391Z"
+  }
+}
+]
